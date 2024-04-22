@@ -10,6 +10,7 @@
                 <aside class="flexColumn items-start gap-6 md:gap-10 2xl:gap-16">
                     <div class="flexColumn text-2xl md:text-5xl 2xl:text-6xl font-bold md:gap-y-3">
                         <h2><i>KIKUKAWA</i>で見つけよう、</h2>
+
                         <h2>わたしのミライ。</h2>
                     </div>
                     <h4 class="text-base md:text-2xl 2xl:text-3xl font-bold">あなたの情熱、私たちと共有しませんか？</h4>
