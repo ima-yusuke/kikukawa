@@ -1,7 +1,12 @@
 import './bootstrap';
 import "flowbite";
-import Alpine from 'alpinejs';
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
+import Clipboard from '@ryangjchandler/alpine-clipboard'
 
-window.Alpine = Alpine;
+Alpine.plugin(Clipboard)
 
-Alpine.start();
+Livewire.start()
+
+// window.Alpine = Alpine;
+
+// Alpine.start();
