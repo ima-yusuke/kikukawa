@@ -143,7 +143,7 @@ return [
     |
     */
 
-    'inject_morph_markers' => false,
+    'inject_morph_markers' => true,
 
     /*
     |---------------------------------------------------------------------------
@@ -157,5 +157,5 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
-//    'asset_url' => env('APP_URL'),
+    'asset_url' => env('https://kikukawa.jobcruise.jp/public/'),
 ];
