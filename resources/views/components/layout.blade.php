@@ -10,11 +10,13 @@
     @vite('resources/css/app.css')
     @vite('resources/js/index.js')
 
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="overflow-hidden">
 {{$slot}}
 {{--@livewireScriptConfig--}}
 </body>
-
+<!-- Livewire Scripts -->
+<script src="{{ asset('vendor/livewire/livewire.js') }}" data-csrf="0HJcINLwckfhcCwcNkTtYbk7f6R65u9H1GWUdsHe" data-update-uri="/livewire/update" data-navigate-once="true"></script>
 </html>
