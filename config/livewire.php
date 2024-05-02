@@ -157,5 +157,5 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
-    'app_url' => 'https://kikukawa.jobcruise.jp/',
+    'asset_url' => env('APP_URL'),
 ];
