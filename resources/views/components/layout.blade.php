@@ -17,6 +17,5 @@
 {{$slot}}
 {{--@livewireScriptConfig--}}
 </body>
-<!-- Livewire Scripts -->
-<script src="{{ asset('vendor/livewire/livewire.js') }}" data-csrf="0HJcINLwckfhcCwcNkTtYbk7f6R65u9H1GWUdsHe" data-update-uri="/livewire/update" data-navigate-once="true"></script>
+
 </html>
