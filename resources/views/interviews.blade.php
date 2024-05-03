@@ -66,7 +66,12 @@
                                     <a class="text-center editBtn font-medium text-blue-600 dark:text-blue-500 hover:underline">編集</a>
                                 </div>
                             </td>
-                            <livewire:interview-livewire :id="$value->id"></livewire:interview-livewire>
+                            <td class="px-6 py-4">
+                                <div class="flexCenter">
+                                    <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteInterview({{ $value['id'] }})">削除</button>
+                                </div>
+                            </td>
+                            {{--<livewire:interview-livewire :id="$value->id"></livewire:interview-livewire>--}}
                             <td class="text-center px-6 py-4 w-[5%] ">
                                 <div class="flexCenter">{{$value["name"]}}</div>
                             </td>
@@ -122,7 +127,12 @@
                                 <td class="px-6 py-4 _sticky_a ">
                                     <x-dashboard_btn></x-dashboard_btn>
                                 </td>
-                                <livewire:interview-livewire :id="$value->id"></livewire:interview-livewire>
+                                <td class="px-6 py-4">
+                                    <div class="flexCenter">
+                                        <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteInterview({{ $value['id'] }})">削除</button>
+                                    </div>
+                                </td>
+                                {{--<livewire:interview-livewire :id="$value->id"></livewire:interview-livewire>--}}
 
                                 <td class="px-6 py-4"><input class="text-xs text-dashInputColor" type="text" name="name" value="{{$value["name"]}}" required></td>
                                 <td class="px-6 py-4">
@@ -285,5 +295,30 @@
         uploadTwoFile(i)
     }
 
+    function deleteInterview(id) {
+
+        // Ajaxリクエストを送信して削除処理を行う
+        fetch('{{ route('deleteInterview') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 削除が成功したらページをリロードするなどの処理を行う
+                    location.reload();
+                    console.log("ok")
+                } else {
+                    // エラーメッセージを表示するなどの処理を行う
+                    console.error('削除に失敗しました');
+                }
+            })
+            .catch(error => {
+                console.error('削除に失敗しました:', error);
+            });
+    }
 </script>
 

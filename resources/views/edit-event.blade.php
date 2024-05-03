@@ -43,7 +43,12 @@
                                     <a href="{{route("openEditDetail",$val["id"])}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">詳細編集</a>
                                 </div>
                             </td>
-                            <livewire:event-livewire :id="$val['id']"></livewire:event-livewire>
+                            <td class="px-6 py-4">
+                                <div class="flexCenter">
+                                    <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteEvent({{ $val['id'] }})">削除</button>
+                                </div>
+                            </td>
+                            {{--<livewire:event-livewire :id="$val['id']"></livewire:event-livewire>--}}
                             <td class="px-6 py-4">{{$val["title"]}} </td>
                             <td class="px-6 py-4">{{$val["date"]}} </td>
                             <td class="px-6 py-4">{{$value["category_name"]}} </td>
@@ -61,7 +66,12 @@
                                 <td class="px-6 py-4">
                                    -
                                 </td>
-                                <livewire:event-livewire :id="$val['id']"></livewire:event-livewire>
+                                <td class="px-6 py-4">
+                                    <div class="flexCenter">
+                                        <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteEvent({{ $val['id'] }})">削除</button>
+                                    </div>
+                                </td>
+                                {{--livewire:event-livewire :id="$val['id']"></livewire:event-livewire>--}}
                                 <td class="px-6 py-4"><input type="text" name="title" value="{{$val["title"]}}" class="text-sm text-dashInputColor" required> </td>
                                 <td class="px-6 py-4"><input type="date" name="date" value="{{$val["date"]}}" class="text-sm text-dashInputColor" required></td>
                                 <td class="px-6 py-4">
@@ -141,7 +151,33 @@
         dashTrToggle(i)
     }
 
+    function deleteEvent(id) {
+
+        // Ajaxリクエストを送信して削除処理を行う
+        fetch('{{ route('deleteEvent') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 削除が成功したらページをリロードするなどの処理を行う
+                    location.reload();
+                    console.log("ok")
+                } else {
+                    // エラーメッセージを表示するなどの処理を行う
+                    console.error('削除に失敗しました');
+                }
+            })
+            .catch(error => {
+                console.error('削除に失敗しました:', error);
+            });
+    }
 </script>
+
 
 
 

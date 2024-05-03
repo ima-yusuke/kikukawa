@@ -142,4 +142,20 @@ class dashBenefit extends Controller
 
         return redirect()->route('show-benefit');
     }
+
+    public function deleteBenefit(Request $request)
+    {
+        $plan = Benefit::find($request->id);
+        // レコードを削除
+        $plan->delete();
+
+        $plans = BenefitContent::where("benefit_id",$request->id)->get();
+        // レコードを削除
+
+        foreach ($plans as $plan){
+            $plan->delete();
+        }
+
+        return redirect()->route('show-benefit');
+    }
 }

@@ -34,7 +34,12 @@
                                 <a class="editBtn font-medium text-blue-600 dark:text-blue-500 hover:underline">編集</a>
                             </div>
                         </td>
-                        <livewire:product-livewire :id="$value->id"></livewire:product-livewire>
+                        <td class="px-6 py-4">
+                            <div class="flexCenter">
+                                <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteProduct({{ $value['id'] }})">削除</button>
+                            </div>
+                        </td>
+                        {{--<livewire:product-livewire :id="$value->id"></livewire:product-livewire>--}}
                         <td class="px-6 py-4 w-180">{{$value["p_name"]}} </td>
                         <td class="px-6 py-4 flexCenter">
                             <img src="{{asset($value->path)}}" class="w-4/12 rounded-8 shrink-0 object-cover">
@@ -50,7 +55,12 @@
                             <td class="px-6 py-4">
                                 <x-dashboard_btn></x-dashboard_btn>
                             </td>
-                            <livewire:product-livewire :id="$value->id"></livewire:product-livewire>
+                            <td class="px-6 py-4">
+                                <div class="flexCenter">
+                                    <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteProduct({{ $value['id'] }})">削除</button>
+                                </div>
+                            </td>
+                            {{--<livewire:product-livewire :id="$value->id"></livewire:product-livewire>--}}
 
                             <td class="px-6 py-4"><input type="text" name="p_name" value="{{$value["p_name"]}}" class="text-dashInputColor" required></td>
                             <td class="px-6 py-4">
@@ -122,6 +132,32 @@
     for(let i = 0;i<imgInput.length;i++){
         resetInputValue(i);
         uploadFile(i)
+    }
+
+    function deleteProduct(id) {
+
+        // Ajaxリクエストを送信して削除処理を行う
+        fetch('{{ route('deleteProduct') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 削除が成功したらページをリロードするなどの処理を行う
+                    location.reload();
+                    console.log("ok")
+                } else {
+                    // エラーメッセージを表示するなどの処理を行う
+                    console.error('削除に失敗しました');
+                }
+            })
+            .catch(error => {
+                console.error('削除に失敗しました:', error);
+            });
     }
 
 </script>

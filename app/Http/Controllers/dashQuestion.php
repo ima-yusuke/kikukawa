@@ -40,4 +40,13 @@ class dashQuestion extends Controller
         return redirect()->route('show-question');
     }
 
+    public function deleteQuestion(Request $request)
+    {
+        $plan = Question::find($request->id);
+        // レコードを削除
+        $plan->delete();
+
+        return redirect()->route('show-question');
+    }
+
 }

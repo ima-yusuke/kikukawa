@@ -62,4 +62,14 @@ class dashProduct extends Controller
 
         return redirect()->route('show-product');
     }
+
+    public function deleteProduct(Request $request)
+    {
+        // Booksテーブルから指定のIDのレコード1件を取得
+        $plan = Product::find($request->id);
+        // レコードを削除
+        $plan->delete();
+        // 削除したら一覧画面にリダイレクト
+        return redirect()->route('show-product');
+    }
 }

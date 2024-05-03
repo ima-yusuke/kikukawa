@@ -31,7 +31,12 @@
                                 <a class="editBtn font-medium text-blue-600 dark:text-blue-500 hover:underline">編集</a>
                             </div>
                         </td>
-                        <livewire:question-livewire :id="$value->id"></livewire:question-livewire>
+                        <td class="px-6 py-4">
+                            <div class="flexCenter">
+                                <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteQuestion({{ $value['id'] }})">削除</button>
+                            </div>
+                        </td>
+                        {{--<livewire:question-livewire :id="$value->id"></livewire:question-livewire>--}}
                         <td class="px-6 py-4 w-[30%]">
                             <div class="flexCenter">{{$value["question"]}} </div>
                         </td>
@@ -48,7 +53,12 @@
                             <td class="px-2 py-4">
                                 <x-dashboard_btn></x-dashboard_btn>
                             </td>
-                            <livewire:question-livewire :id="$value->id"></livewire:question-livewire>
+                            <td class="px-6 py-4">
+                                <div class="flexCenter">
+                                    <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteQuestion({{ $value['id'] }})">削除</button>
+                                </div>
+                            </td>
+                            {{--<livewire:question-livewire :id="$value->id"></livewire:question-livewire>--}}
 
                             <td class="px-2 py-4 w-[30%]"><input type="text" name="question" value="{{$value["question"]}}" class="w-full text-xs text-dashInputColor" required> </td>
                             <td class="px-2 py-4 w-[50%]"><textarea name="answer" class="w-[90%] h-100 text-xs text-dashInputColor" required>{{$value["answer"]}}</textarea></td>
@@ -92,5 +102,31 @@
 
     for(let i = 0;i<editTr.length;i++){
         dashTrToggle(i)
+    }
+
+    function deleteQuestion(id) {
+
+        // Ajaxリクエストを送信して削除処理を行う
+        fetch('{{ route('deleteQuestion') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 削除が成功したらページをリロードするなどの処理を行う
+                    location.reload();
+                    console.log("ok")
+                } else {
+                    // エラーメッセージを表示するなどの処理を行う
+                    console.error('削除に失敗しました');
+                }
+            })
+            .catch(error => {
+                console.error('削除に失敗しました:', error);
+            });
     }
 </script>

@@ -45,7 +45,12 @@
                                     <a class="editBtn font-medium text-blue-600 dark:text-blue-500 hover:underline">編集</a>
                                 </div>
                             </td>
-                            <livewire:job-opening-livewire :id="$value->id" :job_opening_id="$value->job_opening[0]['job_opening_id']"></livewire:job-opening-livewire>
+                            <td class="px-6 py-4">
+                                <div class="flexCenter">
+                                    <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteJobOpening({{ $value['id'] }})">削除</button>
+                                </div>
+                            </td>
+                            {{--<livewire:job-opening-livewire :id="$value->id" :job_opening_id="$value->job_opening[0]['job_opening_id']"></livewire:job-opening-livewire>--}}
                             <td class="px-6 py-4">
                                 <div class="flexCenter">
                                     {{$value["title"]}}
@@ -112,7 +117,12 @@
                                 <td class="px-2 py-4 _sticky_a">
                                     <x-dashboard_btn></x-dashboard_btn>
                                 </td>
-                                <livewire:job-opening-livewire :id="$value->id"></livewire:job-opening-livewire>
+                                <td class="px-6 py-4">
+                                    <div class="flexCenter">
+                                        <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteJobOpening({{ $value['id'] }})">削除</button>
+                                    </div>
+                                </td>
+                                {{--<livewire:job-opening-livewire :id="$value->id"></livewire:job-opening-livewire>--}}
                                 <td class="px-2 py-4 w-150"><input type="text" name="title" value="{{$value["title"]}}" class="text-xs text-dashInputColor" required></td>
                                 <td class="px-2 py-4 w-100"><input type="text" name="job_target" value="{{$value["job_target"]!=null?$value["job_target"]:null}}" class="text-xs text-dashInputColor"></td>
                                 <td class="px-2 py-4 w-100"><input type="text" name="recruit_number" value="{{$value["recruit_number"]!=null?$value["recruit_number"]:null}}" class="text-xs text-dashInputColor"></td>
@@ -244,5 +254,31 @@
         add_job_form.appendChild(new_div_title);
         add_job_form.appendChild(new_div_content);
     })
+
+    function deleteJobOpening(id) {
+
+        // Ajaxリクエストを送信して削除処理を行う
+        fetch('{{ route('deleteJobOpening') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 削除が成功したらページをリロードするなどの処理を行う
+                    location.reload();
+                    console.log("ok")
+                } else {
+                    // エラーメッセージを表示するなどの処理を行う
+                    console.error('削除に失敗しました');
+                }
+            })
+            .catch(error => {
+                console.error('削除に失敗しました:', error);
+            });
+    }
 
 </script>

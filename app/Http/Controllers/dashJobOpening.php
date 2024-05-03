@@ -131,4 +131,20 @@ class dashJobOpening extends Controller
 
         return redirect()->route('show-job_opening');
     }
+
+    public function deleteJobOpening(Request $request)
+    {
+        $plan = JobOpening::find($request->id);
+        // レコードを削除
+        $plan->delete();
+        // 削除したら一覧画面にリダイレクト
+
+        $plans = JobCategory::where("job_opening_id",$request->id)->get();
+        // レコードを削除
+
+        foreach ($plans as $plan){
+            $plan->delete();
+        }
+        return redirect()->route('show-job_opening');
+    }
 }

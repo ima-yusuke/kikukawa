@@ -53,5 +53,15 @@ class dashEvent extends Controller
 
         return redirect()->route('show-event');
     }
+
+    public function deleteEvent(Request $request)
+    {
+        // Booksテーブルから指定のIDのレコード1件を取得
+        $plan = Event::find($request->id);
+        // レコードを削除
+        $plan->delete();
+        // 削除したら一覧画面にリダイレクト
+        return redirect()->route('show-event');
+    }
 }
 

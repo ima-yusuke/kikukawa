@@ -36,7 +36,12 @@
                                     <a class="editBtn font-medium text-blue-600 dark:text-blue-500 hover:underline">編集</a>
                                 </div>
                             </td>
-                            <livewire:benefit-livewire :id="$value->id" :benefit_id="$value->benefit[0]['benefit_id']"></livewire:benefit-livewire>
+                            <td class="px-6 py-4">
+                                <div class="flexCenter">
+                                    <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteBenefit({{ $value['id'] }})">削除</button>
+                                </div>
+                            </td>
+                            {{--<livewire:benefit-livewire :id="$value->id" :benefit_id="$value->benefit[0]['benefit_id']"></livewire:benefit-livewire>--}}
 
                             <td class="px-6 py-4">
                                 <div class="flexCenter">{{$value["title"]}}</div>
@@ -79,7 +84,12 @@
                                 <td class="px-2 py-4 _sticky_a">
                                     <x-dashboard_btn></x-dashboard_btn>
                                 </td>
-                                <livewire:benefit-livewire :id="$value->id" :benefit_id="$value->benefit[0]['benefit_id']"></livewire:benefit-livewire>
+                                <td class="px-6 py-4">
+                                    <div class="flexCenter">
+                                        <button type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onclick="deleteBenefit({{ $value['id'] }})">削除</button>
+                                    </div>
+                                </td>
+                                {{--<livewire:benefit-livewire :id="$value->id" :benefit_id="$value->benefit[0]['benefit_id']"></livewire:benefit-livewire>--}}
 
                                 <td class="px-2 py-4"><input type="text" name="title" value="{{$value["title"]}}" class="w-full text-xs text-dashInputColor" required></td>
                                 <?php  $count=0;  ?>
@@ -193,5 +203,32 @@
         add_job_form.appendChild(new_div_title);
         add_job_form.appendChild(new_div_content);
     })
+
+    function deleteBenefit(id) {
+
+        // Ajaxリクエストを送信して削除処理を行う
+        fetch('{{ route('deleteBenefit') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 削除が成功したらページをリロードするなどの処理を行う
+                    location.reload();
+                    console.log("ok")
+                } else {
+                    // エラーメッセージを表示するなどの処理を行う
+                    console.error('削除に失敗しました');
+                }
+            })
+            .catch(error => {
+                console.error('削除に失敗しました:', error);
+            });
+    }
+
 
 </script>

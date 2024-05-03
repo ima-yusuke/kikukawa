@@ -105,4 +105,14 @@ class dashInterview extends Controller
         return redirect()->route('show-interview');
     }
 
+    public function deleteInterview(Request $request)
+    {
+        // Booksテーブルから指定のIDのレコード1件を取得
+        $plan = Interview::find($request->id);
+        // レコードを削除
+        $plan->delete();
+        // 削除したら一覧画面にリダイレクト
+        return redirect()->route('show-interview');
+    }
+
 }
