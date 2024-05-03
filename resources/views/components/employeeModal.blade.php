@@ -7,8 +7,14 @@
         <div class="overflow-scroll flexColumnCenter p-6">
 
                 {{--Modal header--}}
+                {{--<div class="ml-0 fixed top-53 right-20 lg:right-260 2xl:right-[24%] z-100">--}}
+                {{--<button wire:click="closeModal()" class="ml-auto"><i class="fa-solid fa-xmark text-4xl font-bold"></i></button>--}}
+                {{--</div>--}}
                 <div class="ml-0 fixed top-53 right-20 lg:right-260 2xl:right-[24%] z-100">
-                    <button wire:click="closeModal()" class="ml-auto"><i class="fa-solid fa-xmark text-4xl font-bold"></i></button>
+                    <form action="{{ route('closeModal') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="ml-auto"><i class="fa-solid fa-xmark text-4xl font-bold"></i></button>
+                    </form>
                 </div>
 
                 {{--Modal body--}}
@@ -104,10 +110,16 @@
                 </div>
 
                 <!-- Modal footer -->
-                <div class="flex items-center mt-8 p-4 md:p-5 rounded-b dark:border-gray-600">
-                    <button wire:click="closeModal()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">閉じる</button>
+                {{--<div class="flex items-center mt-8 p-4 md:p-5 rounded-b dark:border-gray-600">--}}
+                {{--<button wire:click="closeModal()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">閉じる</button>--}}
+                {{--</div>--}}
+                <div  class="flex items-center mt-8 p-4 md:p-5 rounded-b dark:border-gray-600">
+                    <form action="{{ route('closeModal') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">閉じる</button>
+                    </form>
                 </div>
-            </div>
+        </div>
     </div>
     <div class="nonScroll"></div>
 </div>

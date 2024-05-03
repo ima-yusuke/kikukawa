@@ -163,7 +163,42 @@
             </div>
 
             {{--コンテンツ--}}
-            <livewire:modal :interviews="$interviews"></livewire:modal>
+            <div class="flex flex-wrap justify-center items-center gap-4 mx-4">
+                @foreach($interviews as $key=>$value)
+                    {{--１名分の詳細--}}
+                    <article class="w-full md:max-w-[250px] lg:max-w-[320px]">
+                        <aside class="relative w-full h-277">
+                            <img src="{{asset($value["path_1"])}}" class="w-full h-full object-cover">
+                            <p class="absolute top-0 text-white bg-baseColor px-3 py-1">{{$value["job_dpt"]}}</p>
+                        </aside>
+                        <aside class="bg-white flex flex-col items-center gap-y-4 py-6">
+                            <h4 class="text-baseColor font-bold text-xl">{{$value["name"]}}</h4>
+                            <div class="text-textGray">
+                                <P>{{$value["hire_year"]}}入社</P>
+                                <p>{{$value["school"]}} {{$value["department"]}}</p>
+                                <p>{{$value["faculty"]}} 卒業</p>
+                            </div>
+
+                            {{--Open modalbox--}}
+                            {{--<div>--}}
+                            {{--<button wire:click="openModal({{$value['id']}})" class="flex items-center justify-between w-full py-1.5 px-6 border border-solid border-baseColor rounded-button">インタビューを見る→</button>--}}
+                            {{--</div>--}}
+                            <form action="{{ route('openModal') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $value['id'] }}">
+                                <button type="submit" class="flex items-center justify-between w-full py-1.5 px-6 border border-solid border-baseColor rounded-button">インタビューを見る→</button>
+                            </form>
+                        </aside>
+                    </article>
+                @endforeach
+
+
+                @if(isset($selectedEmployee))
+                    <x-employeeModal :modalData="$selectedEmployee"></x-employeeModal>
+                @endif
+            </div>
+
+            {{--<livewire:modal :interviews="$interviews"></livewire:modal>--}}
         </section>
 
         {{--募集職種・募集要項--}}
@@ -329,6 +364,18 @@
         {{--フッター--}}
        <x-footer></x-footer>
     </main>
+
+        {{--モーダル表示・閉じたときにインタビュー画面までスクロール--}}
+        @if(isset($interviewAnchor))
+            <script>
+                // インタビューセクションの要素を取得
+                let interviewSection = document.getElementById('interviews');
+                // 要素が存在する場合のみスクロール
+                if (interviewSection) {
+                    interviewSection.scrollIntoView({ behavior: 'instant' });
+                }
+            </script>
+        @endif
     @vite(['resources/js/index.js'])
 {{--    <script>--}}
 {{--        window.Laravel = {};--}}

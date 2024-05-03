@@ -30,6 +30,11 @@ Route::get('/dashboard/edit-img', [\App\Http\Controllers\kikukawaController::cla
 
 //=====================================================================================================
 
+Route::post('/modal', [\App\Http\Controllers\kikukawaController::class,"openModal"])->name('openModal');
+Route::post('/', [\App\Http\Controllers\kikukawaController::class,"closeModal"])->name('closeModal');
+
+//====================================
+
 //Route::get('/', function () {
 //    return view('welcome');
 //});
