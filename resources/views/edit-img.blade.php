@@ -193,6 +193,9 @@
 
             // canvasをbase64に変換しpreviewにセットする
             preview.src = canvas.toDataURL();
+
+            const downloadLink = document.getElementById('downloadLink'); // ダウンロードリンクを取得
+            downloadLink.href = canvas.toDataURL(); // ダウンロードリンクのhref属性に画像データURLを設定
         });
 
         // ===================================[画像のwidth取得しinput valueに追加]===========================================
