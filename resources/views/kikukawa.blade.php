@@ -179,26 +179,19 @@
                                 <p>{{$value["faculty"]}} 卒業</p>
                             </div>
 
-                            {{--Open modalbox--}}
-                            {{--<div>--}}
-                            {{--<button wire:click="openModal({{$value['id']}})" class="flex items-center justify-between w-full py-1.5 px-6 border border-solid border-baseColor rounded-button">インタビューを見る→</button>--}}
-                            {{--</div>--}}
-                            <form action="{{ route('openModal') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $value['id'] }}">
-                                <button type="submit" class="flex items-center justify-between w-full py-1.5 px-6 border border-solid border-baseColor rounded-button">インタビューを見る→</button>
-                            </form>
+                            {{--Open modalbox button--}}
+                            <div>
+                                <button type="button" class="openModalBtn flex items-center justify-between w-full py-1.5 px-6 border border-solid border-baseColor rounded-button">インタビューを見る→</button>
+                            </div>
                         </aside>
                     </article>
+
+                    {{--ModalBox--}}
+                    <div class="hidden modalDiv">
+                        <x-employeeModal :modalData="$value"></x-employeeModal>
+                    </div>
                 @endforeach
-
-
-                @if(isset($selectedEmployee))
-                    <x-employeeModal :modalData="$selectedEmployee"></x-employeeModal>
-                @endif
             </div>
-
-            {{--<livewire:modal :interviews="$interviews"></livewire:modal>--}}
         </section>
 
         {{--募集職種・募集要項--}}
@@ -365,22 +358,34 @@
        <x-footer></x-footer>
     </main>
 
-        {{--モーダル表示・閉じたときにインタビュー画面までスクロール--}}
-        @if(isset($interviewAnchor))
-            <script>
-                // インタビューセクションの要素を取得
-                let interviewSection = document.getElementById('interviews');
-                // 要素が存在する場合のみスクロール
-                if (interviewSection) {
-                    interviewSection.scrollIntoView({ behavior: 'instant' });
-                }
-            </script>
-        @endif
     @vite(['resources/js/index.js'])
-{{--    <script>--}}
-{{--        window.Laravel = {};--}}
-{{--        window.Laravel.products = @json($products);--}}
-{{--        console.log(window.Laravel);--}}
-{{--    </script>--}}
+    <script>
+        {{--window.Laravel = {};--}}
+        {{--window.Laravel.products = @json($products);--}}
+        {{--console.log(window.Laravel);--}}
+
+        let openModalBtns = document.getElementsByClassName("openModalBtn");
+        let closeModalBtns = document.getElementsByClassName("closeModalBtn");
+        let closeModalBtns2 = document.getElementsByClassName("closeModalBtn2");
+        let modalDiv = document.getElementsByClassName("modalDiv");
+
+
+        for(let i=0;i<openModalBtns.length;i++){
+            // open Modal
+            openModalBtns[i].addEventListener("click",function (){
+                modalDiv[i].classList.remove("hidden")
+            })
+
+            // close Modal
+            closeModalBtns[i].addEventListener("click",function (){
+                modalDiv[i].classList.add("hidden")
+            })
+
+            // close Modal2
+            closeModalBtns2[i].addEventListener("click",function (){
+                modalDiv[i].classList.add("hidden")
+            })
+        }
+    </script>
 </x-layout>
 

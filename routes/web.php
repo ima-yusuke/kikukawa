@@ -14,30 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//============================[本番]=====================================
-
-
-Route::get('/',function (){
-    return view("kikukawa");
-});
+//============================[ユーザー画面]=====================================
+//ホーム画面表示
 Route::get('/', [\App\Http\Controllers\kikukawaController::class,"giveInfo"])->name('giveInfo');
 
+//イベント詳細ページ表示
 Route::get('/detail/{id}', [\App\Http\Controllers\kikukawaController::class,"openDetail"])->name('openDetail');
-Route::get('/dashboard/edit-detail/{id}', [\App\Http\Controllers\kikukawaController::class,"openEditDetail"])->name('openEditDetail');
-Route::post('/posts', [\App\Http\Controllers\kikukawaController::class,"storeData"])->name('posts');
-
-Route::get('/dashboard/edit-img', [\App\Http\Controllers\kikukawaController::class,"editImg"])->name('editImg');
-
-//=====================================================================================================
-
-Route::post('/modal', [\App\Http\Controllers\kikukawaController::class,"openModal"])->name('openModal');
-Route::post('/', [\App\Http\Controllers\kikukawaController::class,"closeModal"])->name('closeModal');
-
-//====================================
-
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+//===================================[管理画面]==================================================================
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -47,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     //Event
     Route::get("/dashboard/show-event",[\App\Http\Controllers\dashEvent::class,"showEvent"])->name("show-event");
     Route::post("/dashboard/add-event",[\App\Http\Controllers\dashEvent::class,"addEvent"])->name("add-event");
@@ -66,13 +50,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/dashboard/show-message{message}', [\App\Http\Controllers\dashMessage::class,"updateMessage"])->name('update-message');
     Route::post("/dashboard/show-message",[\App\Http\Controllers\dashMessage::class,"deleteMessage"])->name("deleteMessage");
 
-
 //Interview
     Route::get("/dashboard/show-interview",[\App\Http\Controllers\dashInterview::class,"showInterviewPage"])->name("show-interview");
     Route::post("/dashboard/add-interview",[\App\Http\Controllers\dashInterview::class,"addInterview"])->name("add-interview");
     Route::patch('/dashboard/show-interview{interview}', [\App\Http\Controllers\dashInterview::class,"updateInterview"])->name('update-interview');
     Route::post("/dashboard/show-interview",[\App\Http\Controllers\dashInterview::class,"deleteInterview"])->name("deleteInterview");
-
 
 //Job Opening
     Route::get("/dashboard/show-job_opening",[\App\Http\Controllers\dashJobOpening::class,"showJobOpeningPage"])->name("show-job_opening");
@@ -80,13 +62,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/dashboard/show-job_opening{job_opening}', [\App\Http\Controllers\dashJobOpening::class,"updateJobOpening"])->name('update-job_opening');
     Route::post("/dashboard/show-job_opening",[\App\Http\Controllers\dashJobOpening::class,"deleteJobOpening"])->name("deleteJobOpening");
 
-
 //Benefit
     Route::get("/dashboard/show-benefit",[\App\Http\Controllers\dashBenefit::class,"showBenefitPage"])->name("show-benefit");
     Route::post("/dashboard/add-add-benefit",[\App\Http\Controllers\dashBenefit::class,"addBenefit"])->name("add-benefit");
     Route::patch('/dashboard/show-benefit{benefit}', [\App\Http\Controllers\dashBenefit::class,"updateBenefit"])->name('update-benefit');
     Route::post("/dashboard/show-benefit",[\App\Http\Controllers\dashBenefit::class,"deleteBenefit"])->name("deleteBenefit");
-
 
 //Question
     Route::get("/dashboard/show-question",[\App\Http\Controllers\dashQuestion::class,"showQuestionPage"])->name("show-question");
@@ -94,6 +74,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/dashboard/show-question{question}', [\App\Http\Controllers\dashQuestion::class,"updateQuestion"])->name('update-question');
     Route::post("/dashboard/show-question",[\App\Http\Controllers\dashQuestion::class,"deleteQuestion"])->name("deleteQuestion");
 
+//イベント編集（Quill)
+    Route::get('/dashboard/edit-detail/{id}', [\App\Http\Controllers\kikukawaController::class,"openEditDetail"])->name('openEditDetail');
+    Route::post('/posts', [\App\Http\Controllers\kikukawaController::class,"storeData"])->name('posts');
+
+//画像編集
+    Route::get('/dashboard/edit-img', [\App\Http\Controllers\kikukawaController::class,"editImg"])->name('editImg');
 });
 
 require __DIR__.'/auth.php';
