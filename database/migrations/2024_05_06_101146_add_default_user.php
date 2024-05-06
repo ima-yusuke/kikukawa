@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -15,7 +16,7 @@ return new class extends Migration
         User::create([
             'name'=>'test',
             'email'=>'test@com',
-            'password'=>'test',
+            'password'=>Hash::make('password'),
             'created_at'=>now(),
             'updated_at'=>now()
         ]);
