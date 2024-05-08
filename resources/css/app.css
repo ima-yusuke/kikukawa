@@ -59,6 +59,18 @@ button,a{
     height: 400px; /* 固定の高さを指定 */
 }
 
+/*製品画像*/
+.p-img::before{
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+    position: relative;
+}
+
+.p-img{
+    /*position: absolute;*/
+}
+
 @media (min-width: 1024px) {
     .commonSectionStyles {
         padding-top: 8rem;

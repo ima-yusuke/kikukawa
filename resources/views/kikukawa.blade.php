@@ -92,17 +92,16 @@
                     <div class="flex items-start justify-center content-start gap-6 flex-wrap w-full">
                         @foreach($products as $key=>$value)
                             @if(isset($value["link"]))
-                                <a href="{{$value["link"]}}" class="shadow-item flexColumn overflow-hidden h-230 2xl:h-300 items-center gap-2 pb-4 rounded-8 w-[90%] md:w-[48%] lg:w-[31%]" target="_blank">
-                                    <img src="{{asset($value->path)}}" class="h-[85%] w-full rounded-8 shrink-0 object-cover" alt="image">
+                                <a href="{{$value["link"]}}" class="shadow-item flexColumn overflow-hidden items-center gap-2 pb-4 rounded-8" target="_blank">
+                                    <img src="{{asset($value->path)}}" class="p-img h-[170px] rounded-8 shrink-0 object-cover" alt="image">
                                     <p>{{$value["p_name"]}}</p>
                                 </a>
                             @else
-                                <aside class="shadow-item flexColumn overflow-hidden h-230 2xl:h-300 items-center gap-2 pb-4 rounded-8 w-[90%] md:w-[48%] lg:w-[31%]">
-                                    <img src="{{asset($value->path)}}" class="h-[85%] w-full rounded-8 shrink-0 object-cover" alt="image">
+                                <aside class="shadow-item flexColumn overflow-hidden items-center gap-2 pb-4 rounded-8">
+                                    <img src="{{asset($value->path)}}" class="p-img h-[170px] rounded-8 shrink-0 object-cover" alt="image">
                                     <p>{{$value["p_name"]}}</p>
                                 </aside>
                             @endif
-
                         @endforeach
                     </div>
                 </article>
@@ -127,20 +126,18 @@
                         {{--1名のメッセージ--}}
                         <article class="flexColumn md:flex-row items-center gap-12">
                             <aside class="w-full md:w-auto">
-                                <div class="w-full md:w-270 md:h-330 flex justify-start items-start relative">
-                                    <img src="{{asset($value["path"])}}"
-                                         class="rounded-8 w-full h-full object-cover" alt="image">
-                                    <img src="{{asset("storage/img/messageBg.jpg")}}"
-                                         class="bottom-5 left-0 right-0 m-auto m-0 absolute rounded-8" alt="image">
-                                    <aside
-                                        class="flexColumn items-center gap-px absolute left-0 right-0 m-0 m-auto bottom-12">
-                                        @if($value["role"]!=null)
-                                            <p class="text-profile text-center text-xs capitalize">{{$value["role"]}}</p>
+                                <div class="w-full md:w-270 md:h-330 flex justify-center items-start relative">
+                                    <img src="{{ asset($value['path']) }}" class="h-[300px] w-[250px] rounded-8 shrink-0 object-cover m-auto" alt="image">
+                                    <img src="{{ asset('storage/img/messageBg.jpg') }}" class="bottom-5 left-0 right-0 m-auto absolute rounded-8" alt="image">
+                                    <aside class="flexColumn items-center gap-px absolute left-0 right-0 m-0 m-auto bottom-12">
+                                        @if($value['role'] != null)
+                                            <p class="text-profile text-center text-xs capitalize">{{ $value['role'] }}</p>
                                         @endif
-                                        <p class="leading-6 text-center text-profileName capitalize">{{$value["name"]}}</p>
+                                        <p class="leading-6 text-center text-profileName capitalize">{{ $value['name'] }}</p>
                                     </aside>
                                 </div>
                             </aside>
+
                             <aside class="flexColumn items-start gap-4">
                                 <div
                                     class="flex justify-center items-start gap-2.5 pl-4 border-l-4 border-solid border-baseColor">
@@ -166,9 +163,9 @@
             <div class="flex flex-wrap justify-center items-center gap-4 mx-4">
                 @foreach($interviews as $key=>$value)
                     {{--１名分の詳細--}}
-                    <article class="w-full md:max-w-[250px] lg:max-w-[320px]">
-                        <aside class="relative w-full h-277">
-                            <img src="{{asset($value["path_1"])}}" class="w-full h-full object-cover">
+                    <article class="w-[280px] max-w-[320px] lg:w-[330px] lg:max-w-[320px]">
+                        <aside class="relative">
+                            <img src="{{asset($value["path_1"])}}" class="w-full h-[300px] object-cover">
                             <p class="absolute top-0 text-white bg-baseColor px-3 py-1">{{$value["job_dpt"]}}</p>
                         </aside>
                         <aside class="bg-white flex flex-col items-center gap-y-4 py-6">
