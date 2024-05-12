@@ -1,7 +1,7 @@
 <x-layout title="キクカワエンタープライズ">
     <x-header></x-header>
 
-    <main class="bg-main flex flex-col items-center h-full">
+    <main class="bg-main flex flex-col items-center h-full overflow-hidden">
 
         {{--ヘッダービジュアル--}}
         <section id="home" class="flexColumn lg:flexBetween relative z-10 w-full pb-16">
