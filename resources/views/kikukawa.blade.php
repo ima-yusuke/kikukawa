@@ -22,7 +22,7 @@
         </section>
 
         {{--ヘッダー背景ボール--}}
-        <div class="rounded-1019 shadow-headBall h-1000 2xl:h-1200 w-1000 2xl:w-1200 absolute left-428 top-413 bg-gradient-to-r from-headLinerStart from-32.36% to-headLinerEnd to-79.42%"></div>
+        <div class="rounded-1019 shadow-headBall h-500 md:h-1000 2xl:h-1200 w-500 md:w-1000 2xl:w-1200 absolute -top-20 -left-64 md:left-428 md:top-413 bg-gradient-to-r from-headLinerStart from-32.36% to-headLinerEnd to-79.42%"></div>
 
         {{--開催情報--}}
         <section class="commonSectionStyles w-full">
